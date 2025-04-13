@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relay Controller</title>
+</head>
+<body>
+    <h1>📡 RelayPi 상태</h1>
+    <p><b>현재 연결된 SSID:</b> {{ ssid }}</p>
+    <p><b>IP 주소:</b> {{ ip }}</p>
+
+    <h2>🔌 상위 AP 연결</h2>
+    <form method="POST" action="/connect">
+        <input type="text" name="ssid" placeholder="SSID" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <button type="submit">Connect & Start Relay</button>
+    </form>
+
+    <br><a href="/reboot">🔄 Reboot</a>
+</body>
+</html>
