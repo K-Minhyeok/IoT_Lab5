@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # setup_relay_dynamic.sh
-# 사용법: sudo ./setup_relay_dynamic.sh <상위_SSID> <상위_PSK> <내_AP_SSID> <내_IP_BASE>
+# 사용법: sudo ./setup_relay_dynamic.sh <내_AP_SSID> <내_IP_BASE> <상위_SSID> <상위_PSK>
 
-SSID_PARENT=$1
-PSK_PARENT=$2
-SSID_MY_AP=$3
-IP_BASE=$4
+SSID_MY_AP=$1
+IP_BASE=$2
+SSID_PARENT=$3
+PSK_PARENT=$4
 
-if [ -z "$SSID_PARENT" ] || [ -z "$PSK_PARENT" ] || [ -z "$SSID_MY_AP" ] || [ -z "$IP_BASE" ]; then
-  echo "Usage: sudo $0 <상위_SSID> <상위_PSK> <내_AP_SSID> <내_IP_BASE(예: 192.168.100)>"
+if [ -z "$SSID_MY_AP" ] || [ -z "$IP_BASE" ] || [ -z "$SSID_PARENT" ] || [ -z "$PSK_PARENT" ]; then
+  echo "Usage: sudo $0 <내_AP_SSID> <내_IP_BASE> <상위_SSID> <상위_PSK>"
   exit 1
 fi
 
