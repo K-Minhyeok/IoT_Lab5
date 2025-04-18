@@ -80,8 +80,29 @@ sudo sysctl -w net.ipv4.ip_forward=1
 sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
 sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+sudo iptables-save > /etc/iptables.ipv4.nat
 
+# 5. systemd 서비스 생성
+cat > /etc/systemd/system/relay-nat.service <<EOF
+[Unit]
+Description=Restore iptables NAT on boot
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/iptables-restore < /etc/iptables.ipv4.nat
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reexec
+sudo systemctl enable relay-nat
+
+# 완료 메시지
 echo "[✔] 릴레이 중계기 설정 완료"
 echo "    상위 WiFi: $SSID_PARENT → 내 AP: $SSID_MY_AP"
 echo "    IP 대역: $IP_BASE.0/24"
+echo "    NAT 포워딩은 부팅 시 자동 복원됩니다."
 echo "    Test: Connect to $SSID_MY_AP and try ping google.com"
