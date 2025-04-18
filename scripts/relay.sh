@@ -26,8 +26,14 @@ network={
 }
 EOF
 
+# 안전하게 wpa_supplicant 초기화
 sudo pkill wpa_supplicant
+sudo rm -rf /var/run/wpa_supplicant
+sudo mkdir -p /var/run/wpa_supplicant
+sudo chown root:netdev /var/run/wpa_supplicant
+
 sudo ip link set wlan1 down
+sudo ip addr flush dev wlan1
 sudo ip link set wlan1 up
 sudo wpa_supplicant -B -i wlan1 -c /etc/wpa_supplicant/wpa_supplicant.conf -D nl80211
 sleep 3
