@@ -51,12 +51,12 @@ cat > /etc/hostapd/hostapd.conf <<EOF
 interface=wlan0
 driver=nl80211
 ssid=$SSID_MY_AP
-channel=6
+channel=8
 wmm_enabled=0
 auth_algs=1
 ignore_broadcast_ssid=0
 wpa=2
-wpa_passphrase=relay1234
+wpa_passphrase=123456789a
 wpa_key_mgmt=WPA-PSK
 rsn_pairwise=CCMP
 EOF
